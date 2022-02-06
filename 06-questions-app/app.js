@@ -11,7 +11,7 @@ questions.forEach((eachQuestion) => {
         item.classList.remove("show-text");
       }
     });
-
     eachQuestion.classList.toggle("show-text");
   });
 });
+
