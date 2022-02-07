@@ -74,9 +74,33 @@ const menu = [
 ];
 
 const sectionCenter = document.querySelector(".section-center");
+const filterBtns = document.querySelectorAll(".filter-btn");
 
+// Load items
 window.addEventListener("DOMContentLoaded", () => {
-  let displayMenu = menu.map((item) => {
+  displayMenuItems(menu);
+});
+
+// filter items
+filterBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const category = e.currentTarget.dataset.id;
+    const menuCategory = menu.filter((menuItem) => {
+      if (menuItem.category === category) {
+        return menuItem;
+      }
+    });
+    // console.log(menuCategory);
+    if (category === "all") {
+      displayMenuItems(menu);
+    } else {
+      displayMenuItems(menuCategory);
+    }
+  });
+});
+
+function displayMenuItems(menuItems) {
+  let displayMenu = menuItems.map((item) => {
     return `<article class="menu-item">
           <img src=${item.img} class="photo" alt=${item.title} />
           <div class="item-info">
@@ -92,4 +116,4 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   displayMenu = displayMenu.join("");
   sectionCenter.innerHTML = displayMenu;
-});
+}
