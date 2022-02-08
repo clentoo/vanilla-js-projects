@@ -83,11 +83,33 @@ const menu = [
 
 const sectionCenter = document.querySelector(".section-center");
 const container = document.querySelector(".btn-container");
-const filterBtns = document.querySelectorAll(".filter-btn");
 
 // Load items
 window.addEventListener("DOMContentLoaded", () => {
   displayMenuItems(menu);
+  displayMenuButtons();
+});
+
+function displayMenuItems(menuItems) {
+  let displayMenu = menuItems.map((item) => {
+    return `<article class="menu-item">
+    <img src=${item.img} class="photo" alt=${item.title} />
+    <div class="item-info">
+    <header>
+    <h4>${item.title}</h4>
+    <h4 class="price">${item.price}</h4>
+    </header>
+    <p class="item-text">
+    ${item.desc}
+            </p>
+          </div>
+          </article>`;
+  });
+  displayMenu = displayMenu.join("");
+  sectionCenter.innerHTML = displayMenu;
+}
+
+function displayMenuButtons() {
   const categories = menu.reduce(
     (values, item) => {
       if (!values.includes(item.category)) {
@@ -100,46 +122,27 @@ window.addEventListener("DOMContentLoaded", () => {
   const categoryBtns = categories
     .map((category) => {
       return `<button class="filter-btn" type="button" data-id=${category}>
-        ${category}
-      </button>`;
+    ${category}
+    </button>`;
     })
     .join("");
   container.innerHTML = categoryBtns;
-});
-
-// filter items
-filterBtns.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const category = e.currentTarget.dataset.id;
-    const menuCategory = menu.filter((menuItem) => {
-      if (menuItem.category === category) {
-        return menuItem;
+  const filterBtns = container.querySelectorAll(".filter-btn");
+  // filter items
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const category = e.currentTarget.dataset.id;
+      const menuCategory = menu.filter((menuItem) => {
+        if (menuItem.category === category) {
+          return menuItem;
+        }
+      });
+      // console.log(menuCategory);
+      if (category === "all") {
+        displayMenuItems(menu);
+      } else {
+        displayMenuItems(menuCategory);
       }
     });
-    // console.log(menuCategory);
-    if (category === "all") {
-      displayMenuItems(menu);
-    } else {
-      displayMenuItems(menuCategory);
-    }
   });
-});
-
-function displayMenuItems(menuItems) {
-  let displayMenu = menuItems.map((item) => {
-    return `<article class="menu-item">
-          <img src=${item.img} class="photo" alt=${item.title} />
-          <div class="item-info">
-            <header>
-              <h4>${item.title}</h4>
-              <h4 class="price">${item.price}</h4>
-            </header>
-            <p class="item-text">
-              ${item.desc}
-            </p>
-          </div>
-        </article>`;
-  });
-  displayMenu = displayMenu.join("");
-  sectionCenter.innerHTML = displayMenu;
 }
