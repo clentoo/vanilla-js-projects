@@ -16,6 +16,9 @@ let editID = "";
 // sunmit form
 form.addEventListener("submit", addItem);
 
+// clear items
+clearBtn.addEventListener("click", clearItems);
+
 // ****** FUNCTIONS **********
 function addItem(e) {
   e.preventDefault();
@@ -50,9 +53,9 @@ function addItem(e) {
     // show container
     container.classList.add("show-container");
     // add to local storage
-    addToLocalStorage(id, value)
+    addToLocalStorage(id, value);
     // set back to default
-    setBackToDefault()
+    setBackToDefault();
   } else if (value && editFlag) {
     console.log("editing");
   } else {
@@ -70,15 +73,26 @@ function displayAlert(text, action) {
     alert.classList.remove(`alert-${action}`);
   }, 1000);
 }
-
+// clear items
+function clearItems() {
+  const items = document.querySelectorAll(".grocery-item");
+  if (items.length > 0) {
+    items.forEach((item) => {
+      list.removeChild(item);
+    });
+  }
+}
 //setback to default
 function setBackToDefault() {
-  console.log('item set back to default');
+  grocery.value = "";
+  editFlag = false;
+  editID = "";
+  submitBtn.textContent = "submit";
 }
 
 // ****** LOCAL STORAGE **********
 function addToLocalStorage() {
-  console.log('add to local storage');
+  console.log("add to local storage");
 }
 
 // ****** SETUP ITEMS **********
