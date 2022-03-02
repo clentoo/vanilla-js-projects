@@ -81,7 +81,10 @@ function clearItems() {
       list.removeChild(item);
     });
   }
+  container.classList.remove("show-container");
+  displayAlert("empty list", "danger");
 }
+
 //setback to default
 function setBackToDefault() {
   grocery.value = "";
