@@ -46,6 +46,12 @@ function addItem(e) {
               </button>
             </div>`;
 
+    const deleteBtn = element.querySelector(".delete-btn");
+    const editBtn = element.querySelector(".edit-btn");
+
+    deleteBtn.addEventListener("click", deleteItem);
+    editBtn.addEventListener("click", editItem);
+
     // append child
     list.appendChild(element);
     // display alert
@@ -83,6 +89,18 @@ function clearItems() {
   }
   container.classList.remove("show-container");
   displayAlert("empty list", "danger");
+  setBackToDefault();
+  // localStorage.removeItem('list')
+}
+
+// delete function
+function deleteItem(e) {
+  const element = e.currentTarget.parentElement.parentElement;
+  list.removeChild(element);
+}
+// edit function
+function editItem() {
+  console.log("edit item");
 }
 
 //setback to default
