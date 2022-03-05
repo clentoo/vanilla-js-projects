@@ -65,6 +65,8 @@ function addItem(e) {
   } else if (value && editFlag) {
     editElement.innerHTML = value;
     displayAlert("Value Changed", "success");
+    // edit local storage
+    editLocalStorage(editID, value);
     setBackToDefault();
   } else {
     displayAlert("Please enter Value", "danger");
@@ -132,9 +134,17 @@ function setBackToDefault() {
 }
 
 // ****** LOCAL STORAGE **********
-function addToLocalStorage() {
-  console.log("add to local storage");
+function addToLocalStorage(id, value) {
+  const grocery = { id, value };
+  let items = localStorage.getItem("list")
+    ? JSON.parse(localStorage.getItem("list"))
+    : [];
+  console.log(items);
+  items.push(grocery)
+  localStorage.setItem('list', JSON.stringify(items))
 }
 
 function removeFromLocalStorage(id) {}
+
+function editLocalStorage(id, value) {}
 // ****** SETUP ITEMS **********
