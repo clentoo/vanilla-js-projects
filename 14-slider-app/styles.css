@@ -192,6 +192,7 @@ Slider
   overflow: hidden;
   margin-top: 4rem;
 }
+
 .slide {
   position: absolute;
   width: 100%;
@@ -277,6 +278,6 @@ Slider
   left: 300%;
 }
 .slide{
-  transform: translateX(-100%);
+  transform: translateX(-00%);
 } */
 /* negative value moves to left */
